@@ -5,13 +5,12 @@ import iHaveToFinished
 import runBlockingWithName
 
 fun main() = runBlockingWithName {
-    val job = launch {
-        withContext(NonCancellable) {
-            launch {
-                iHaveToFinished()
-            }
+    val job = withContext(NonCancellable) {
+        launch {
+            iHaveToFinished()
         }
     }
+
     delay(10)
     job.cancelAndJoin()
 }

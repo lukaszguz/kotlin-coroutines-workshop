@@ -7,8 +7,6 @@ import runBlockingWithName
 
 fun main() = runBlockingWithName {
     withTimeout(200) {
-        launch {
-            iHaveToFinished()
-        }
+        iHaveToFinished()
     }
 }

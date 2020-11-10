@@ -4,22 +4,19 @@ import LogClass.Companion.log
 import LogClass.Companion.logger
 import kotlinx.coroutines.suspendCancellableCoroutine
 import runBlockingWithName
+import java.lang.RuntimeException
 import java.util.concurrent.CompletableFuture
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 fun main() = runBlockingWithName {
     val future = CompletableFuture.supplyAsync {
-        log("Produce ...")
-        "Hello!"
+        log("Produce")
+        "Hello"
     }
-    log(future.await())
+    require(future.await() == "Hello")
 
-    try {
-        CompletableFuture.failedFuture<String>(RuntimeException("Ops")).await()
-    } catch (ex: Exception) {
-        logger.error("Oh", ex)
-    }
+    CompletableFuture.failedFuture<String>(RuntimeException("OOOOOOOO!")).await()
 }
 
 
